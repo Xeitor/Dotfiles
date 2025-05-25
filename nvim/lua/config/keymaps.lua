@@ -1,0 +1,22 @@
+-- Keymaps are automatically loaded on the VeryLazy event
+-- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
+-- Add any additional keymaps here
+vim.api.nvim_set_keymap("v", "<C-r>", [["hy:%s/<C-r>h//gc<left><left><left>]], { noremap = true })
+-- vim.api.nvim_set_keymap("v", "<leader>cT", '<cmd> lua require("conform").format({ formatters = { "injected" }, timeout_ms = 3000 }<CR>)', {})
+-- vim.keymap.set("", "<leader>f", function()
+--   require("conform").format({ async = true, lsp_fallback = true })
+-- end)
+-- Format Selection (visual mode) with lsp (for ruby)
+-- function FormatFunction()
+--   vim.lsp.buf.format({
+--     range = {
+--       ["start"] = vim.api.nvim_buf_get_mark(0, "<"),
+--       ["end"] = vim.api.nvim_buf_get_mark(0, ">"),
+--     }
+--   })
+-- end
+--
+-- vim.keymap.set("v", "<leader>fc", '<cmd> lua require("conform").format({ formatters = { "injected" }, timeout_ms = 3000 } end<CR>)', { noremap = true, silent = true })
+--
+--
+vim.keymap.set({ "n", "v" }, "<leader>fc", "<Cmd>:Format<CR>", { noremap = true }) -- Format Current File

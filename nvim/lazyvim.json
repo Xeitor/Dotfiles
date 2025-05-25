@@ -1,0 +1,11 @@
+{
+  "extras": [
+    "lazyvim.plugins.extras.ai.copilot",
+    "lazyvim.plugins.extras.ai.copilot-chat",
+    "lazyvim.plugins.extras.editor.harpoon2"
+  ],
+  "news": {
+    "NEWS.md": "7107"
+  },
+  "version": 7
+}
