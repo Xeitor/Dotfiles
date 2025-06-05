@@ -2,12 +2,9 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ allowed-unfree-packages, config, pkgs, ... }:
-
+{ config, pkgs, ... }:
 
 {
-  programs.hyprland.enable = true;
-
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
@@ -31,7 +28,7 @@
   time.timeZone = "America/Argentina/Buenos_Aires";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
+  i18n.defaultLocale = "es_AR.UTF-8";
 
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "es_AR.UTF-8";
@@ -46,25 +43,23 @@
   };
 
   # Enable the X11 windowing system.
-  # You can disable this if you're only using the Wayland session.
   services.xserver.enable = true;
 
-  # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
+  # Enable the GNOME Desktop Environment.
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
-    layout = "us";
+    layout = "es";
     variant = "";
   };
 
+  # Configure console keymap
+  console.keyMap = "es";
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
-
-  # bluetooth
-  #  services.bluetooth.enable = true;
-  hardware.bluetooth.enable = true;
 
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
@@ -88,31 +83,29 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.xeitor = {
     isNormalUser = true;
-    description = "Ezequiel Salas";
+    description = "Ezequiel";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      kdePackages.kate
     #  thunderbird
     ];
   };
 
-  # Enable automatic login for the user.
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "xeitor";
-
   # Install firefox.
   programs.firefox.enable = true;
+
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    vscode
-    git
-    kitty
-    wofi
-    wget
-    waybar
+   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+   wget
+   git
+   vscode
+   kitty
+   wofi
+   waybar
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -142,5 +135,8 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.11"; # Did you read the comment?
 
-  nixpkgs.config.allowUnfree = true;
+  programs.hyprland = {    
+    enable = true;    
+    xwayland.enable = true;
+  };
 }
